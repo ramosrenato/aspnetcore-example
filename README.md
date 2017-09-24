@@ -1,18 +1,71 @@
-# .NET Core Docker Samples
+# Projeto exemplo asp net mvc com .NET CORE 2.0  
 
+Para executar esse projeto exemplo, é necessário que as seguintes ferramentas estejam instaladas e configuradas.
 
+- [.NET Core SDK](https://www.microsoft.com/net/download/core)
+- [Git bash](https://git-scm.com/downloads) ***Windows**
+- [Docker](https://www.docker.com/)
 
-## Related Repositories
+## Executar o projeto embarcado no container
 
-See the following related Docker Hub repos:
+Você pode criar e executar o container utilizando os seguintes comandos:
 
-* [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/) for .NET Core images.
-* [microsoft/dotnet-samples](https://hub.docker.com/r/microsoft/dotnet-samples/) for .NET Core sample images.
-* [microsoft/aspnetcore](https://hub.docker.com/r/microsoft/aspnetcore/) for ASP.NET Core images.
-* [microsoft/aspnet](https://hub.docker.com/r/microsoft/aspnet/) for ASP.NET Web Forms and MVC images.
-* [microsoft/dotnet-framework](https://hub.docker.com/r/microsoft/dotnet-framework/) for .NET Framework images (for web applications, see microsoft/aspnet).
+```bash
+cd aspnetapp
+docker build -t aspnetapp .
+docker run -it --rm -p 8000:80 --name aspnetapp_sample aspnetapp
+```
 
-See the following related GitHub repos:
+Depois que a aplicação iniciar, acesse [http://localhost:8000/](http://localhost:8000/).
 
-* [dotnet/announcements](https://github.com/dotnet/announcements/issues?q=is%3Aissue+is%3Aopen+label%3ADocker) for Docker-related announcements.
-* [microsoft/dotnet-framework-docker-samples](https://github.com/microsoft/dotnet-framework-docker-samples/) for .NET Framework samples.
+Nota: O parâmetro `-p` mapeia a porta 8000 da sua máquina local para a porta 80 no container.
+
+## Executar o projeto localmente
+
+Você pode compilar e executar o projeto localmente com o [.NET Core 2.0 SDK](https://www.microsoft.com/net/download/core) utilizando os seguintes comandos: 
+
+```bash
+cd aspnetapp
+dotnet restore
+dotnet run
+```
+
+Depois que a aplicação iniciar, acesse [http://localhost:8000/](http://localhost:8000/).
+
+## Criar um pacote para deploy
+
+Você também pode criar um pacote da aplicação, pronto para deploy em produção, com os seguintes comandos:
+
+```bash
+dotnet publish -c release -o published
+```
+
+Você pode rodar a aplicação no **Windows** usando o seguinte comando:
+
+```bash
+dotnet published\aspnetapp.dll
+```
+
+Você pode rodar a aplicação no **Linux or macOS** usando o seguinte comando:
+
+```bash
+dotnet published/aspnetapp.dll
+```
+
+Nota: O parâmetro `-c release` compila a aplicação no mode release (o padrão é modo debug). Veja mais em [dotnet run reference](https://docs.microsoft.com/dotnet/core/tools/dotnet-run).
+
+#
+
+## Docker Images
+
+As seguintes imagens são utilizadas nos exemplos
+
+* [microsoft/aspnetcore-build:2.0](https://hub.docker.com/r/microsoft/aspnetcore-build)
+* [microsoft/aspnetcore:2.0](https://hub.docker.com/r/microsoft/aspnetcore/)
+
+## Outros recursos relacionados
+
+* [ASP.NET Core Getting Started Tutorials](https://www.asp.net/get-started)
+* [.NET Core Production Docker sample](../dotnetapp-prod/README.md)
+* [.NET Core Docker samples](../README.md)
+* [.NET Framework Docker samples](https://github.com/Microsoft/dotnet-framework-docker-samples)
